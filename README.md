@@ -1,15 +1,18 @@
 # ParallelCV
 
-## Parallel implementations of Computer Vision and Image Processing algorithms in CUDA, MPI and OpenMP
+## Parallel implementations of Computer Vision and Image Processing algorithms in CUDA
 
 ### Algorithms implemented 
-* Stereo Matching
+* RGB to Gray
 * Contrast Limited Adaptive Histogram Equalization
-* Canny Edge Detection
-* Gaussian Blurring
+* Bilateral Filtering
+* Gaussia Blurring
+* Mean Shift Segmentation
+* Median Filtier
+* Sobel Filter
 
 ### To be added 
+* Stereo Matching
 * Patch Based Filtering
-* Mean Shift Image Segmentation
 * Harris Corner Detection
 * Image Quantization 
