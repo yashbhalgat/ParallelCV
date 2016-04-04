@@ -1,0 +1,5 @@
+SET (compare_files compare.cpp)
+file( GLOB  hdr *.hpp *.h )
+file( GLOB  cu  *.cu)
+SET (histogram_eq_files main.cpp loadSaveImage.cpp reference_calc.cpp compare.cpp)    
+CUDA_ADD_EXECUTABLE(histeq ${histogram_eq_files} ${hdr} ${cu})
