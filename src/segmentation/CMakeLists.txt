@@ -1,0 +1,11 @@
+PROJECT(segment)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
+
+FIND_PACKAGE(CUDA REQUIRED)
+FIND_PACKAGE(OpenCV REQUIRED)
+
+LINK_LIBRARIES("-L/usr/local/cuda/lib64 -lcudart" ${OpenCV_LIBS})
+
+INCLUDE(FindCUDA)
+
+CUDA_ADD_EXECUTABLE(segment main.cpp segmentation.cpp kernel.cu)
