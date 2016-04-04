@@ -41,7 +41,6 @@ void checkResultsEps(const T* const ref, const T* const gpu, size_t numElem, dou
   unsigned long long totalDiff = 0;
   unsigned numSmallDifferences = 0;
   for (size_t i = 0; i < numElem; ++i) {
-    //subtract smaller from larger in case of unsigned types
     T smaller = std::min(ref[i], gpu[i]);
     T larger = std::max(ref[i], gpu[i]);
     T diff = larger - smaller;
@@ -64,8 +63,6 @@ void checkResultsEps(const T* const ref, const T* const gpu, size_t numElem, dou
   }
 }
 
-//Uses the autodesk method of image comparison
-//Note the the tolerance here is in PIXELS not a percentage of input pixels
 template<typename T>
 void checkResultsAutodesk(const T* const ref, const T* const gpu, size_t numElem, double variance, size_t tolerance)
 {

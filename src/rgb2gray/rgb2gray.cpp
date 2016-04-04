@@ -52,6 +52,20 @@ void preProcess(uchar4 **inputImage, unsigned char **greyImage,
   d_greyImage__ = *d_greyImage;
 }
 
+void referenceCalculation(const uchar4* const rgbaImage,
+                          unsigned char *const greyImage,
+                          size_t numRows,
+                          size_t numCols)
+{
+  for (size_t r = 0; r < numRows; ++r) {
+    for (size_t c = 0; c < numCols; ++c) {
+      uchar4 rgba = rgbaImage[r * numCols + c];
+      float channelSum = .299f * rgba.x + .587f * rgba.y + .114f * rgba.z;
+      greyImage[r * numCols + c] = channelSum;
+    }
+  }
+}
+
 void postProcess(const std::string& output_file, unsigned char* data_ptr) {
   cv::Mat output(numRows(), numCols(), CV_8UC1, (void*)data_ptr);
 
