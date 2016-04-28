@@ -1,3 +1,9 @@
+/*************************************************************
+* ME766 Project
+* Median filter kernels in CUDA
+* Team: Yash Bhalgat | Meet Shah
+*************************************************************/
+
 #include "median.h"
 #include <cuda_runtime.h>
 #include <helper_cuda.h>
@@ -59,11 +65,10 @@ __global__ void cuda_median_fil(uchar* src, uchar* dst)
 	int x = threadIdx.x;
 	int y = threadIdx.y;
 	int index_x = x + blockIdx.x * (blockDim.x - 2);
-	int index_y = y + blockIdx.y * blockDim.y + 1;//第一行和最后一行作了边界延拓
+	int index_y = y + blockIdx.y * blockDim.y + 1;
 	if (index_x < width && index_y < height - 1)
 	{
 		__shared__ uchar temp[block_y * 3][block_x];
-		//取列的三个元素，并排序
 		int top, mid, down, change;
 		top = tex1Dfetch(texRef, index_x + (index_y - 1) * width);
 		mid = tex1Dfetch(texRef, index_x + index_y * width);
@@ -91,7 +96,7 @@ __global__ void cuda_median_fil(uchar* src, uchar* dst)
 		temp[index + 1][x] = mid;
 		temp[index + 2][x] = down;
 		__syncthreads();
-		//位于同一Block内threadIdx.x等于0或者等于BLOCK_X-1的线程只从显存中读入数据而不计算输出点
+
 		if (x > 0 && x < block_x - 1)
 		{
 			uchar box[3][3];
@@ -102,13 +107,13 @@ __global__ void cuda_median_fil(uchar* src, uchar* dst)
 					box[i][j] = temp[index + i][x + j];
 				}
 			}
-			//行排序
+
 			for (int i = 0; i < 3; ++i)
 			{
 				isort(&box[i][0], 3);
 			}
 
-			//取对角线元素中间值
+
 			if (box[0][0] < box[1][1])
 			{
 				change = box[0][0];

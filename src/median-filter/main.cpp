@@ -1,3 +1,9 @@
+/*************************************************************
+* ME766 Project
+* Median filter implementation in CUDA and serial
+* Team: Yash Bhalgat | Meet Shah
+*************************************************************/
+
 #include "median.h"
 
 int main(int argc, char** argv)
