@@ -15,10 +15,11 @@ As a reference implementation, a naive sequential version of the algorithms has 
 ## Algorithms Implemented 
 * rgb2gray
 * Histogram Equalization
-* k-Means Segmentation
 * Gaussian Filtering
 * Sobel Edge Detection
+* Bilateral Filtering
 * Median Filter
+* k-Means Segmentation
 * Depth Retrieval using Stereo Vision
 
 
@@ -166,10 +167,10 @@ A bilateral filter is a non-linear, edge-preserving and noise-reducing smoothing
 for patch=cur in window(org):
   d = 2*kernel_size
   f   = (cur-org).^2
-  cf  = expf(-(d*d)/(SIGMA_DOMAIN*SIGMA_DOMAIN*2));
-  float sf  = expf(-(f*f)/(SIGMA_RANGE*SIGMA_RANGE*2));
-  sum  = sum + cf*sf*cur;
-  sumk = sumk + cf*sf;
+  cf  = expf(-(d*d)/(SIGMA_DOMAIN*SIGMA_DOMAIN*2))
+  float sf  = expf(-(f*f)/(SIGMA_RANGE*SIGMA_RANGE*2))
+  sum  = sum + cf*sf*cur
+  sumk = sumk + cf*sf
 end
 
 sum = sum/sumk;
@@ -186,10 +187,10 @@ A simple initial transfer to using the GPU, is done by taking the code for the i
 The values of the two dimensional Gaussian for the spatial difference can be pre computed, as it only depends on distances, and not the actual values of the pixels. A lot of the time running the kernel, is spent calculating the Gaussian of color intensities. CUDA allows for fast execution of hardware based implementations for a set of functions, at the price of a slight imprecision. 
 
 #### Output Images
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/beach_bil.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/taj_bil.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/tiger_bil.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/jet_bil.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/lena_bil.jpg)
 
 ### K-means Segmentation
 
@@ -239,12 +240,65 @@ We run a global sum matching in order to obtain the global clusters after the pa
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/segment/jet_segment.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/segment/taj_segment.jpg)
 
+### Median Filtering
+Median filtering is a non-linear, low-pass filtering method that can remove white or salt and pepper noise from an image or an audio signal.
+
+#### Pseudo Code
+``` C++
+//CMF = Median Filter with CUDA 
+__global__ void CMF(int* in, int* out, int c) {
+  // k = input array index
+  int k = c+blockDim.x*blockIdx.x+threadIdx.x;
+  int M[N] = {0}; //major array
+  int e[N] = {0}; //equal array
+  int m[N] = {0}; //minor array
+  //window index
+  int i = k-c+threadIdx.y;
+  for (int j=k-c; j<k-c+N; j++) {
+    if (in[j]>in[i]) M[threadIdx.y]+=1;
+    else if (in[j]<in[i]) m[threadIdx.y]+=1;
+    else e[threadIdx.y]+=1;
+  }
+  for (int j = 0; j<N; j++) {
+    if (M[j]==c || m[j]==c || e[j]>=c) {
+      out[k] = in[k-c+j];
+      return; 
+    }
+  }
+}
+```
+#### Speedup Comparison
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/median_pa.png)
+
+#### Parallelization
+It requires sorting in the windows. So, in a sequential code, complexity is Nlog(L) (L is the window size)
+
+The parallel implementation is simply dividing the image into subimages, one subimage for each thread. And the median filter in each of the threads, finally combining all of them into a single filtered image.
+
+#### Output Images
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/aditi_pepper_input.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/median/aditi_median.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/taj_pepper_input.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/median/taj_median.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/tree_pepper_input.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/median/tree_median.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/jet_pepper_input.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/median/jet_median.jpg)
+
+
+### Stereo Vision 
+#### Pseudo Code
+#### Speedup Comparison
+#### Parallelization
+#### Output Images
+
+
 ## References 
-http://www.wseas.us/e-library/conferences/2011/Corfu/COMPUTERS/COMPUTERS-53.pdf
-http://research.ijcaonline.org/volume88/number17/pxc3894051.pdf
-http://users.eecs.northwestern.edu/~wkliao/Kmeans/
-http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4722322
- http://cs.au.dk/~staal/dpc/20072300_paper_final.pdf
+1: http://www.wseas.us/e-library/conferences/2011/Corfu/COMPUTERS/COMPUTERS-53.pdf
+2: http://research.ijcaonline.org/volume88/number17/pxc3894051.pdf
+3: http://users.eecs.northwestern.edu/~wkliao/Kmeans/
+4: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4722322
+5: http://cs.au.dk/~staal/dpc/20072300_paper_final.pdf
 
 
 
