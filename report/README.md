@@ -96,7 +96,6 @@ Because of the size limit of shared memory, we can’t first copy data from glob
 #### Input & Output Images
 ![rgb](https://raw.githubusercontent.com/yashbhalgat/ParallelCV/master/src/histogram-equalization/memorial_raw_large.png)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/histogram-equalization/memorial_histeq.png)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/tiger_bil.pgm)
 
 ### Gaussian Filtering
 
@@ -128,6 +127,27 @@ As we can see from the pseudo code the entire algorithm is involves 2D convoluti
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian/tiger_gaussian.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/jet.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian/jet_gaussian.jpg)
+
+
+### Sobel Edge Detection
+
+Sobel operator:
+`𝐻𝑥 = [ −1 0 1 , −2 0 2 , −1 0 1 ]`
+`𝐻𝑦 =  [ −1 −2 −1 , 0 0 0 , 1 2 1 ]`
+
+To save computation time, we find  `GM (𝑥, 𝑦) = | 𝐻𝑥 | + | 𝐻𝑦 |`  (instead of sum of squares)
+The local edge strength is computed using this quantity.
+
+#### Speedup Comparison
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/sobel_pa.png)
+
+#### Parallelization
+The input image is divided into subimages and each subimage is passed to the blocks.
+The sub-matrix is stored in the shared memory. A gaussian filter is applied on the subimage.
+Then edge detection is applied on each of these sub-matrices.
+
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/sobel.png)
+
 
 ### K-means Segmentation
 
