@@ -286,7 +286,9 @@ The parallel implementation is simply dividing the image into subimages, one sub
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/median/jet_median.jpg)
 
 
-### Stereo Vision 
+### Stereo Vision
+Dense Stereo Vision takes two input images, left and right, which are shifted and matched to generate the depth of each pixel. Non-occluding points are matched and the disparity for each point is computed and then the depth is retrieved.
+
 #### Pseudo Code
 ``` python 
 for k = 0 to MAX_SHIFT do
@@ -306,6 +308,7 @@ end
 
 #### Parallelization
 
+The algorithm of stereo vision uses patch based mathcing across the image and hence this can be easily parallelized using CUDA blocks. We assign each CUDA block a range of pixels in a patch to compute the disparity. Since the disparity of a pixel is completely independent of the disparity at any other point, this algorithm is easily parallizable.   
 
 #### Output Images
 ![Left Image](https://github.com/meetshah1995/EE-702/blob/master/stereo-vision/data/Aloe/view0.png)
