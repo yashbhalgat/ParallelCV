@@ -42,7 +42,7 @@ In this case parallelism is attained by simply dividing the image into equal sub
 #### Input and Output Images
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/aditi.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/rgb2gray/aditi_gray.jpg)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/rgb2gray/taj.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/taj.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/rgb2gray/taj_gray.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/tiger.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/rgb2gray/tiger_gray.jpg)
