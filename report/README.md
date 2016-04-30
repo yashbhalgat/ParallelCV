@@ -318,6 +318,35 @@ The algorithm of stereo vision uses patch based mathcing across the image and he
 ![SAD](https://github.com/meetshah1995/EE-702/blob/master/stereo-vision/data/Aloe/depthMultiOccularSAD_report.png)
 ![SSD](https://github.com/meetshah1995/EE-702/blob/master/stereo-vision/data/Aloe/depthMultiOccularSSD_report.png)
 
+## Speedup Achieved 
+
+### CUDA CV vs OpenCV
+
+| openCV v/s CUDA         | 0.48MP      | 2.5MP       | 3MP         | 8MP         | 12MP        |
+|-------------------------|-------------|-------------|-------------|-------------|-------------|
+| rgb2gray                | 3           | 6.666666667 | 6           | 4.5         | 4.133333333 |
+| hisitogram equalisation | 2.5         | 6.25        | 5.555555556 | 5           | 4.591836735 |
+| gaussian filtering      | 2.666666667 | 2.727272727 | 3.333333333 | 3.733333333 | 3.555555556 |
+| Sobel Edge detection    | 8.333333333 | 15          | 12.5        | 6           | 8           |
+| Bilateral filtering     | 6           | 11.5        | 11.42857143 | 11          | 8.875       |
+| Median filter           | 7.142857143 | 10.95238095 | 10          | 10.57692308 | 10.14285714 |
+| k-means segmentation    | 3           | 2.428571429 | 2.857142857 | 2.5         | 2.708333333 |
+| stereo depth retreival  | 2.727272727 | 3.375       | 3.555555556 | 2.923076923 | 3.055555556 |
+
+### CUDA CV vs MATLAB
+
+| MATLAB v/s CUDA         | 0.48MP      | 2.5MP       | 3MP         | 8MP         | 12MP        |
+|-------------------------|-------------|-------------|-------------|-------------|-------------|
+| rgb2gray                | 2.5         | 5.666666667 | 5.6         | 4.2         | 3.866666667 |
+| hisitogram equalisation | 1.2         | 3.2587      | 3.5487      | 4.563       | 3.876       |
+| gaussian filtering      | 2.333333333 | 2.363636364 | 2.833333333 | 3.066666667 | 3.222222222 |
+| Sobel Edge detection    | 7.936507937 | 14.28571429 | 11.9047619  | 5.714285714 | 7.619047619 |
+| Bilateral filtering     | 4.958677686 | 9.504132231 | 9.445100354 | 9.090909091 | 7.334710744 |
+| Median filter           | 5.330490405 | 8.173418621 | 7.462686567 | 7.893226177 | 7.569296375 |
+| k-means segmentation    | 1.666666667 | 1.349206349 | 1.587301587 | 1.388888889 | 1.50462963  |
+| stereo depth retreival  | 2.525252525 | 3.125       | 3.29218107  | 2.706552707 | 2.829218107 |
+
+
 ## References 
 1: http://www.wseas.us/e-library/conferences/2011/Corfu/COMPUTERS/COMPUTERS-53.pdf
 
