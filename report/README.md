@@ -131,6 +131,8 @@ As we can see from the pseudo code the entire algorithm is involves 2D convoluti
 
 ### Sobel Edge Detection
 
+The algorithm uses two 3×3 kernels which are convolved with the original image to calculate approximations of the derivatives - one for horizontal changes, and one for vertical. If we define A as the source image, and Gx and Gy are two images which at each point contain the horizontal and vertical derivative approximations respectively, the computation for edges can be easily done using this vertical and horizontal derivatives and comparison with a threshold.
+
 Sobel operator:
 `𝐻𝑥 = [ −1 0 1 , −2 0 2 , −1 0 1 ]`
 `𝐻𝑦 =  [ −1 −2 −1 , 0 0 0 , 1 2 1 ]`
