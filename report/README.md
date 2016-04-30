@@ -20,7 +20,8 @@ As a reference implementation, a naive sequential version of the algorithms has 
 * Sobel Edge Detection
 * Median Filter
 * Depth Retrieval using Stereo Vision
-`
+
+
 ### rgb2gray
 
 RGB to grayscale conversion is the most basic pixel-wise conversion. In this we take a pixel in the RBG domain and multiply each color intensity with respective constants and assign the sum as the intensiity of the grayscale pixel. 
@@ -151,6 +152,10 @@ Then edge detection is applied on each of these sub-matrices.
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/taj_sob.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/tiger_sob.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/jet_sob.jpg)
+
+
+
+
 
 ### K-means Segmentation
 
