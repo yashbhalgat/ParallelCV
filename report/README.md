@@ -37,7 +37,7 @@ end
 In this case parallelism is attained by simply dividing the image into equal sub-matrices for each thread. The kernel pseudocode is as given above.
 
 #### Speedup Comparison
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/rgb2gray_pa.png)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/bilateral_pa.png)
 
 #### Input and Output Images
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/aditi.jpg)
@@ -88,6 +88,7 @@ end
 #### Input & Output Images
 ![rgb](https://raw.githubusercontent.com/yashbhalgat/ParallelCV/master/src/histogram-equalization/memorial_raw_large.png)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/histogram-equalization/memorial_histeq.png)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/tiger_bil.pgm)
 
 ### K-means Segmentation
 
