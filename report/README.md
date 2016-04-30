@@ -120,13 +120,13 @@ As we can see from the pseudo code the entire algorithm is involves 2D convoluti
 
 #### Output Images
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/aditi.jpg)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian/aditi_gaussian.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian-filtering/aditi_gaussian.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/taj.jpg)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian/taj_gaussian.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian-filtering/taj_gaussian.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/tiger.jpg)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian/tiger_gaussian.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian-filtering/tiger_gaussian.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/jet.jpg)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian/jet_gaussian.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian-filtering/jet_gaussian.jpg)
 
 
 ### Sobel Edge Detection
