@@ -119,13 +119,9 @@ end
 As we can see from the pseudo code the entire algorithm is involves 2D convolution of a fixed kernel with overlapping patches that span the entire input. These properties of the patch filtering help us in exploiting the shared memory of blocks in CUDA (where essentially a patch corresponds to a block). We inlined the kernel so as to prevent its computation for every block. We observed the highest speedup for this algorithm.  
 
 #### Output Images
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/aditi.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian-filtering/aditi_gaussian.jpg)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/taj.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian-filtering/taj_gaussian.jpg)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/tiger.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian-filtering/tiger_gaussian.jpg)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/jet.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian-filtering/jet_gaussian.jpg)
 
 
@@ -150,6 +146,11 @@ Then edge detection is applied on each of these sub-matrices.
 
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/sobel.png)
 
+#### Output Images
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/beach_sob.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/taj_sob.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/tiger_sob.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/jet_sob.jpg)
 
 ### K-means Segmentation
 
@@ -183,3 +184,8 @@ end
 #### Parallelization
 
 #### Output Images
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/segment/aditi_segment.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/segment/beach_segment.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/segment/tiger_segment.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/segment/jet_segment.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/segment/taj_segment.jpg)
