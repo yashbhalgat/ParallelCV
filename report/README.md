@@ -85,10 +85,10 @@ Each block will process L levels, hence has L threads.
 
 
   ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/histeq1.png)
+  ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/histeq2.png)
 
 Because of the size limit of shared memory, we can’t first copy data from global memory to shared memory, and each thread must read data from global memory. After threads finish computing, each thread has a sub-histogram that size is L. And then, each block need to reduce its sub-histograms to a bigger sub-histogram.
 
-  ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/histeq2.png)
 
 #### Speedup Comparison
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/histogram_equalization_pa.png)
