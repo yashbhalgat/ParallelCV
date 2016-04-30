@@ -1,16 +1,12 @@
-/*************************************************************
-* ME766 Project
-* Median filter implementation in CUDA and serial
-* Team: Yash Bhalgat | Meet Shah
-*************************************************************/
-
 #include "median.h"
 
 int main(int argc, char** argv)
 {
 	namedWindow("src", WINDOW_AUTOSIZE);
 	namedWindow("src", WINDOW_AUTOSIZE);
-	string filename = "TAJ_pepper.jpg";
+	string directory = "../input/";
+	string filename = "tiger_pepper.jpg";
+	filename = directory+filename;
 	Mat src, dst;
 	src = imread(filename, CV_LOAD_IMAGE_GRAYSCALE);
 	src.convertTo(src, CV_8UC1);
@@ -18,7 +14,8 @@ int main(int argc, char** argv)
 	start = clock();
 #if 1
 	medianGPU_opti(src, dst);
-	imwrite("lena_median.jpg", dst);
+	imwrite("tiger_median.jpg", dst);
+	imwrite("tiger_pepper_input.jpg", src);
 #else
 	medianCPU(src, dst);
 	//medianBlur(src, dst, 3);

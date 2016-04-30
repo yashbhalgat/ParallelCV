@@ -50,7 +50,7 @@ inline void GPUassert(cudaError_t code, const char *file, int line, bool Abort=t
 // Kernel for Bilateral filter
 __global__ void bilFil(float *out,int *rows_,int *cols_)
 {
-	const int KSIZE = 3;
+	const int KSIZE = 6;
     int rows = *rows_;
     int cols = *cols_;
     int row = (blockIdx.x*blockDim.x + threadIdx.x);
@@ -232,7 +232,19 @@ int main(int argc, char* argv[])
 
 
 	//Bilateral kernel execution
+	cudaEvent_t start, stop;
+	cudaEventCreate(&start);
+	cudaEventCreate(&stop);
+	cudaEventRecord(start, 0);
+
 	bilFil<<<blk_per_grid,th_per_blk>>>(d_out,d_row,d_col);
+
+	cudaEventRecord(stop, 0);
+	cudaEventSynchronize(stop);
+	float elapsed_time;
+	cudaEventElapsedTime(&elapsed_time, start, stop);
+	printf("elapsed time for bilateral is %f ms", elapsed_time*20);
+
 	GPUerrchk(cudaMemcpy(bnw,d_out,image_height*image_width*sizeof(float),cudaMemcpyDeviceToHost));
 
 	// Converting pixel values to unsigned char
@@ -253,7 +265,20 @@ int main(int argc, char* argv[])
 
 
     // Executing kernel for Sobel filter
+    cudaEvent_t start1, stop1;
+	cudaEventCreate(&start1);
+	cudaEventCreate(&stop1);
+	cudaEventRecord(start1, 0);
+
 	kernelImage<<<blk_per_grid,th_per_blk>>>(d_out,d_row,d_col);
+	
+	cudaEventRecord(stop1, 0);
+	cudaEventSynchronize(stop1);
+	float elapsed_time1;
+	cudaEventElapsedTime(&elapsed_time1, start1, stop1);
+	// cout<<"elapsed time for sobel is "<<elapsed_time1<<" ms"<<endl;
+	printf("elapsed time for sobel is %f ms", elapsed_time1*20);
+
 	GPUerrchk(cudaPeekAtLastError());
 	cudaThreadSynchronize();
 	GPUerrchk(cudaMemcpy(bnw,d_out,image_height*image_width*sizeof(float),cudaMemcpyDeviceToHost));
