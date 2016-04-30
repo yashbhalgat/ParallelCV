@@ -39,15 +39,21 @@ In this case parallelism is attained by simply dividing the image into equal sub
 #### Speedup Comparison
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/rgb2gray_pa.png)
 
-#### Output Images
+#### Input and Output Images
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/aditi.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/rgb2gray/aditi_gray.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/rgb2gray/taj.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/rgb2gray/taj_gray.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/tiger.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/rgb2gray/tiger_gray.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/jet.jpg)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/rgb2gray/jet_gray.jpg)
 
 ### Histogram Equalization
 
 Histogram equalization is a method in image processing of contrast adjustment using the image's histogram. The histogram for intensity values is obtained and then this histogram is equalized in order to generally increase the global contrast of the image under consideration.
+
+For some images, such as remote sensing image, because the gray distribution is in a relatively narrow range, resulting in image details are not clear enough, and have lower contrast. Therefore, we need to do histogram equalization processing for these images.
 
 #### Pseudo Code
 ``` python
@@ -77,9 +83,11 @@ end
 
 
 #### Speedup Comparison
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/histogram_equalization_pa.png)
 
-
-#### Output Images
+#### Input & Output Images
+![rgb](https://raw.githubusercontent.com/yashbhalgat/ParallelCV/master/src/histogram-equalization/memorial_raw_large.png)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/histogram-equalization/memorial_histeq.png)
 
 ### K-means Segmentation
 
