@@ -295,9 +295,13 @@ The parallel implementation is simply dividing the image into subimages, one sub
 
 ## References 
 1: http://www.wseas.us/e-library/conferences/2011/Corfu/COMPUTERS/COMPUTERS-53.pdf
+
 2: http://research.ijcaonline.org/volume88/number17/pxc3894051.pdf
+
 3: http://users.eecs.northwestern.edu/~wkliao/Kmeans/
+
 4: http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4722322
+
 5: http://cs.au.dk/~staal/dpc/20072300_paper_final.pdf
 
 
