@@ -154,7 +154,19 @@ Then edge detection is applied on each of these sub-matrices.
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/jet_sob.jpg)
 
 
+### Median Filtering
 
+#### Pseudo Code
+
+#### Speedup Comparison
+
+#### Parallelization
+
+#### Output Images
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/beach_sob.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/taj_sob.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/tiger_sob.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/jet_sob.jpg)
 
 
 ### K-means Segmentation
@@ -187,6 +199,16 @@ end
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/kmeans_segmentation_pa.png)
 
 #### Parallelization
+
+Features vector of each pixel RGBXY are taken. In this case, descriptor in p(i, j) is P(r,g,b, x, y). This representation leads to a segmentation based on both, the color and position, of the pixel in the image.
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/kmeans.jpg)
+
+Parallel k-means: The optimization process seek to parallelize the nearest centroid, because there are no dependencies between one iteration to another. On the other hand, the computation between centers remains serial, since each iteration depends on the centers that have been calculated in previous iterations. Furthermore, it may include calculating on-site of the new centers, if done by the average, at the same time, by calculating the belonging to each group.
+
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/kmeans2.jpg)
+
+We run a global sum matching in order to obtain the global clusters after the parallel part is complete. We however couldn't get results as good as the serial implementation using this technique.
+
 
 #### Output Images
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/segment/aditi_segment.jpg)
