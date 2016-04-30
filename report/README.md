@@ -288,10 +288,32 @@ The parallel implementation is simply dividing the image into subimages, one sub
 
 ### Stereo Vision 
 #### Pseudo Code
+``` python 
+for k = 0 to MAX_SHIFT do
+    Shift right image to the right by k pixels
+    Perform Sum of Squared Differences (SSD) between left image and shifted right image
+    Update the minSSD and disparity array.
+            for each pixel coordinate (i,j) do
+                if ssd(i,j) < minSSD(i,j) do
+                    minSSD(i,j) <= ssd(i,j)
+                    disparity(i,j) <= k 
+                end
+            end
+end
+```
 #### Speedup Comparison
-#### Parallelization
-#### Output Images
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/stereo_pa.png)
 
+#### Parallelization
+
+
+#### Output Images
+![Left Image](https://github.com/meetshah1995/EE-702/blob/master/stereo-vision/data/Aloe/view0.png)
+![Right Image](https://github.com/meetshah1995/EE-702/blob/master/stereo-vision/data/Aloe/view1.png)
+
+![NCC](https://github.com/meetshah1995/EE-702/blob/master/stereo-vision/data/Aloe/depthMultiOccularNCC_report.png)
+![SAD](https://github.com/meetshah1995/EE-702/blob/master/stereo-vision/data/Aloe/depthMultiOccularSAD_report.png)
+![SSD](https://github.com/meetshah1995/EE-702/blob/master/stereo-vision/data/Aloe/depthMultiOccularSSD_report.png)
 
 ## References 
 1: http://www.wseas.us/e-library/conferences/2011/Corfu/COMPUTERS/COMPUTERS-53.pdf
