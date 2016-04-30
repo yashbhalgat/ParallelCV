@@ -16,4 +16,4 @@ sobel_bil.o: sobel_bil.cu
 	nvcc -c sobel_bil.cu $(NVCC_OPTS)
 	
 clean:
-	rm -f *.o *.png *.pgm sobel_bil
+	rm -f *.o *.png sobel_bil
