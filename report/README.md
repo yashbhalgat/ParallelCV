@@ -154,20 +154,42 @@ Then edge detection is applied on each of these sub-matrices.
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/jet_sob.jpg)
 
 
-### Median Filtering
+### Bilateral Filtering
+
+A bilateral filter is a non-linear, edge-preserving and noise-reducing smoothing filter for images. The intensity value at each pixel in an image is replaced by a weighted average of intensity values from nearby pixels.
 
 #### Pseudo Code
+``` python
+# SIGMA_DOMAIN is the std dev of the filter in spatial domain
+# SIGMA_RANGE is the std dev of the filter in intensity domain
+
+for patch=cur in window(org):
+  d = 2*kernel_size
+  f   = (cur-org).^2
+  cf  = expf(-(d*d)/(SIGMA_DOMAIN*SIGMA_DOMAIN*2));
+  float sf  = expf(-(f*f)/(SIGMA_RANGE*SIGMA_RANGE*2));
+  sum  = sum + cf*sf*cur;
+  sumk = sumk + cf*sf;
+end
+
+sum = sum/sumk;
+out[row*cols+col] = sum;
+```
 
 #### Speedup Comparison
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/bilateral_pa.png)
 
 #### Parallelization
+In Bilateral filtering, we use two kernels for convolution, one in Intensity domain and the other in the spatial domain.
+A simple initial transfer to using the GPU, is done by taking the code for the individual pixel and use that as a basis for a kernel. This kernel is then launched with parameters which generates a thread for each pixel in the image. 
+
+The values of the two dimensional Gaussian for the spatial difference can be pre computed, as it only depends on distances, and not the actual values of the pixels. A lot of the time running the kernel, is spent calculating the Gaussian of color intensities. CUDA allows for fast execution of hardware based implementations for a set of functions, at the price of a slight imprecision. 
 
 #### Output Images
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/beach_sob.jpg)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/taj_sob.jpg)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/tiger_sob.jpg)
-![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/sobel/jet_sob.jpg)
-
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/beach_bil.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/taj_bil.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/tiger_bil.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/jet_bil.jpg)
 
 ### K-means Segmentation
 
@@ -218,3 +240,11 @@ We run a global sum matching in order to obtain the global clusters after the pa
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/segment/taj_segment.jpg)
 
 ## References 
+http://www.wseas.us/e-library/conferences/2011/Corfu/COMPUTERS/COMPUTERS-53.pdf
+http://research.ijcaonline.org/volume88/number17/pxc3894051.pdf
+http://users.eecs.northwestern.edu/~wkliao/Kmeans/
+http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4722322
+ http://cs.au.dk/~staal/dpc/20072300_paper_final.pdf
+
+
+
