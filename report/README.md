@@ -20,7 +20,7 @@ As a reference implementation, a naive sequential version of the algorithms has 
 * Sobel Edge Detection
 * Median Filter
 * Depth Retrieval using Stereo Vision
-
+`
 ### rgb2gray
 
 RGB to grayscale conversion is the most basic pixel-wise conversion. In this we take a pixel in the RBG domain and multiply each color intensity with respective constants and assign the sum as the intensiity of the grayscale pixel. 
@@ -98,7 +98,40 @@ Because of the size limit of shared memory, we can’t first copy data from glob
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/histogram-equalization/memorial_histeq.png)
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/bilateral/tiger_bil.pgm)
 
+### Gaussian Filtering
+
+The idea of Gaussian smoothing is to use this 2-D distribution as a `point-spread' function, and this is achieved by convolution. Since the image is stored as a collection of discrete pixels we need to produce a discrete approximation to the Gaussian function before we can perform the convolution. The kernel is dependent on the patch size and the parameters for the Gaussian function which lead to various levels of smoothening. 
+
+#### Pseudo Code 
+``` python
+patch_size = N*N
+
+patch_i_j = patchCenteredAt(image(i,j))
+for patch_i_j in image:
+  output(i,j) = conv(gaussianKernel(mean,sd) , patch_i_j)
+  output(i,j) = normazlize(output(i,j))
+end
+``` 
+#### Speedup Comparison
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/gaussian_filtering_pa.png)
+
+#### Parallelization
+
+As we can see from the pseudo code the entire algorithm is involves 2D convolution of a fixed kernel with overlapping patches that span the entire input. These properties of the patch filtering help us in exploiting the shared memory of blocks in CUDA (where essentially a patch corresponds to a block). We inlined the kernel so as to prevent its computation for every block. We observed the highest speedup for this algorithm.  
+
+#### Output Images
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/aditi.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian/aditi_gaussian.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/taj.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian/taj_gaussian.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/tiger.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian/tiger_gaussian.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/input/jet.jpg)
+![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/output/gaussian/jet_gaussian.jpg)
+
 ### K-means Segmentation
+
+k-means segmentation is a method of vector quantization which aims to partition n observations into k clusters in which each observation belongs to the cluster with the nearest mean, serving as a prototype of the cluster. This results in a partitioning of the image into Voronoi cells.
 
 #### Pseudo Code
 ``` python
@@ -124,24 +157,6 @@ end
 
 #### Speedup Comparison
 ![rgb](https://github.com/yashbhalgat/ParallelCV/blob/master/report/histogram_equalization_pa.png)
-
-#### Parallelization
-
-#### Output Images
-
-### Gaussian Filtering
-
-#### Pseudo Code 
-``` python
-patch_size = N*N
-
-patch_i_j = patchCenteredAt(image(i,j))
-for patch_i_j in image:
-  output(i,j) = conv(gaussianKernel(mean,sd) , patch_i_j)
-  output(i,j) = normazlize(output(i,j))
-end
-``` 
-#### Speedup Comparison
 
 #### Parallelization
 
