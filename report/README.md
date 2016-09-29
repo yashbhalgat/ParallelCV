@@ -2,15 +2,13 @@
 
 ## Parallelization of Computer Vision and image Processing algorithms
 
+### Guide: Prof. S. Gopalakrishnan
+
 Images represent data in a 2d fashion and most image processing and computer vision algorithms involve processing and analysing blocks of images to attain desired results. These properties of image data and image processing algorithms make it a natural choice to parallelize them and exploit the SIMD nature of the algorithms. 
 
 
 As a reference implementation, a naive sequential version of the algorithms has been implemented, which runs on the CPU. We also have run our algorithms using MATLAB and OpenCV and have provided a detailed performance analysis of the computation time taken. Below, we have explained explicitly the analysis and parallel implementation of 7 Image Processing algorithms.
 
-## Group members 
-
-* Meet Pragnesh Shah [ 13D070003 ]
-* Yash Bhalgat [ 13D070014 ]
 
 ## Algorithms Implemented 
 * rgb2gray
